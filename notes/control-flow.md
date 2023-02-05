@@ -68,3 +68,14 @@ default:
     fmt.Println("Printed in case of no matches")
 }
 ```
+``` Go 
+city = "London"
+switch city {
+    case "Berlin":
+        // some code here
+    case "London", "Amsterdam"
+        // some code here will execute for city == London or Amsterdam
+    default:
+        // some code if city is not one of above
+}
+```
