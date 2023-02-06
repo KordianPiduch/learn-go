@@ -62,3 +62,57 @@ func main() {
     fmt.Println(add(xs...))
 }
 ```
+
+## Clousers
+
+A closure is a function value that references variables from outside its body. The function may access and assign to the referenced variables; in this sense the function is "bound" to the variables.
+``` Go
+func adder() func(int) {
+    sum := 0
+    return func(x int) int {
+        sum += x
+        return sum
+    }
+}
+
+func main () {
+    pos := adder()
+    for i:=0; i<10; i++ {
+        fmt.Println(pos(i))
+    }
+}
+``` 
+
+A function like this together with the nonlocal variables it references is known as a closure. In this case, increment and the variable x form the closure.
+
+``` Go
+func main() { 
+    x:=0
+    increment := func() int { 
+        x++
+        return x 
+    }
+    fmt.Println(increment())
+    fmt.Println(increment())
+}
+```
+
+Another way to use closure is by writing a function that returns another function, which when called, can generate a sequence of numbers. For example, here’s how we might generate all the even numbers:
+
+``` Go 
+func makeEvenGenerator() func() uint { 
+    i := uint(0)
+    return func() (ret uint) { 
+        ret=i
+        i+=2
+        return
+     } 
+}
+func main() {
+    nextEven := makeEvenGenerator() 
+    fmt.Println(nextEven()) // 0 
+    fmt.Println(nextEven()) // 2 
+    fmt.Println(nextEven()) // 4
+}
+```
+
